@@ -19,11 +19,7 @@
             <li><a href="controller?action=readbyid">Show car by ID</a></li>
             <li><a href="controller?action=readcar">Create a new car</a></li>
         </ul>
-        
-        <nav>
-            <a href="${pageContext.request.contextPath}">Home</a>
-        </nav>      
-        
+         
     </body>
 </html>
 
