@@ -1,11 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page trimDirectiveWhitespaces="true"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
         <title>Unknown action</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h3>Unknown action</h3>
+
+        <h2>Unknown action</h2>
+
+        <nav>
+            <a href="${pageContext.request.contextPath}">Home</a>
+        </nav>  
     </body>
 </html>
+
