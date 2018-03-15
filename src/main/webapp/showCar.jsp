@@ -19,7 +19,7 @@
         </ul>
         
         <nav>
-            <a href="${pageContext.request.contextPath}">Home</a>
+            <a href="<%= request.getContextPath() %>">Home</a>
         </nav>        
         
     </body>
