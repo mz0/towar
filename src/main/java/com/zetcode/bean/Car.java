@@ -1,6 +1,12 @@
 package com.zetcode.bean;
 
+import java.util.Objects;
+
 public class Car {
+    
+    private Long id;
+    private String name;
+    private int price;
 
     public String getName() {
         return name;
@@ -26,7 +32,37 @@ public class Car {
         this.id = id;
     }
 
-    private Long id;
-    private String name;
-    private int price;
+    @Override
+    public int hashCode() {
+        
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.name);
+        hash = 61 * hash + this.price;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Car other = (Car) obj;
+        if (this.price != other.price) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        
+        return Objects.equals(this.id, other.id);
+    }    
 }
+
