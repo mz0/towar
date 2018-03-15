@@ -24,14 +24,14 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbyclient</artifactId>
-            <version>10.13.1.1</version>
+            <version>10.14.1.0</version>
         </dependency>
         
         <dependency>
@@ -43,7 +43,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>3.7</version>
         </dependency>
         
     </dependencies>
@@ -64,4 +64,3 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     </build>
 
 </project>
-
