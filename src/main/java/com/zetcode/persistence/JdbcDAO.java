@@ -1,6 +1,7 @@
 package com.zetcode.persistence;
 
 import com.zetcode.bean.Car;
+import com.zetcode.util.DBUtils;
 import com.zetcode.util.ServiceLocator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -93,26 +94,11 @@ public class JdbcDAO implements CarDAO {
             lgr.log(Level.SEVERE, e.getMessage(), e);
 
         } finally {
-
-            try {
-
-                if (con != null) {
-                    con.close();
-                }
-
-                if (pst != null) {
-
-                    pst.close();
-                }
-
-                if (rs != null) {
-                    rs.close();
-                }
-
-            } catch (SQLException e) {
-                Logger lgr = Logger.getLogger(JdbcDAO.class.getName());
-                lgr.log(Level.WARNING, e.getMessage(), e);
-            }
+            
+            DBUtils.closeResultSet(rs);
+            DBUtils.closeStatement(pst);
+            DBUtils.closeConnection(con);
         }
     }
 }
+
