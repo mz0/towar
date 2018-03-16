@@ -3,6 +3,8 @@ package com.zetcode.web;
 import com.zetcode.bean.Car;
 import com.zetcode.persistence.CarDAO;
 import com.zetcode.persistence.JdbcDAO;
+import com.zetcode.service.CarsService;
+import com.zetcode.service.ICarsService;
 import com.zetcode.util.ValidateParameter;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -41,8 +43,10 @@ public class Controller extends HttpServlet {
         String page = UNKNOWN_VIEW;
 
         if (LIST_CARS_ACTION.equals(actionName)) {
-            CarDAO carDAO = new JdbcDAO();
-            request.setAttribute("carList", carDAO.findAll());
+            
+            ICarsService service = new CarsService();
+            
+            request.setAttribute("carList", service.findAllCars());
             page = ALL_CARS_VIEW;
         }
         
@@ -60,10 +64,9 @@ public class Controller extends HttpServlet {
 
             if (ValidateParameter.validateId(sid)) {
 
+                ICarsService service = new CarsService();
                 Long carId = Long.valueOf(sid);
-                CarDAO carDAO = new JdbcDAO();
-
-                request.setAttribute("returnedCar", carDAO.findCar(carId));
+                request.setAttribute("returnedCar", service.findCar(carId));
 
                 page = SHOW_CAR_VIEW;
             } else {
@@ -97,12 +100,13 @@ public class Controller extends HttpServlet {
                 car.setName(sname);
                 car.setPrice(Integer.valueOf(sprice));
 
-                CarDAO carDAO = new JdbcDAO();
-                carDAO.saveCar(car);
+                ICarsService service = new CarsService();
+                service.saveCar(car);
 
                 request.getSession().setAttribute("carName", sname);
                 request.getSession().setAttribute("carPrice", sprice);
                 page = CAR_SAVED_VIEW;
+                
             } else {
 
                 page = WRONG_PARAMS_VIEW;
@@ -112,3 +116,4 @@ public class Controller extends HttpServlet {
         response.sendRedirect(page);
     }
 }
+
