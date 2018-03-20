@@ -63,7 +63,7 @@ public class JdbcDAO implements CarDAO {
     @Override
     public List<Car> findAll() {
 
-        List<Car> carList = new ArrayList();
+        List<Car> carList = new ArrayList<>();
 
         execute(() -> {
             DataSource ds = ServiceLocator.getDataSource(DATA_SOURCE);
