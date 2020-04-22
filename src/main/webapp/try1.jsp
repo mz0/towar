@@ -21,6 +21,8 @@ select ID, Name, Price from CARS
   </body>
 </html>
 <!--
+https://tomcat.apache.org/taglibs/standard/
 https://docs.oracle.com/javaee/7/javaserver-faces-2-2/vdldocs-facelets/c/forEach.html#navbar_top
 http://tomcat.apache.org/tomcat-9.0-doc/jndi-datasource-examples-howto.html
+https://tomcat.apache.org/tomcat-9.0-doc/jdbc-pool.html
 -->
