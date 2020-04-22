@@ -3,7 +3,7 @@ package com.zetcode.bean;
 import java.util.Objects;
 
 public class Car {
-    
+
     private Long id;
     private String name;
     private int price;
@@ -11,7 +11,6 @@ public class Car {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -19,7 +18,6 @@ public class Car {
     public int getPrice() {
         return price;
     }
-
     public void setPrice(int price) {
         this.price = price;
     }
@@ -27,14 +25,12 @@ public class Car {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
 
     @Override
     public int hashCode() {
-        
         int hash = 7;
         hash = 61 * hash + Objects.hashCode(this.id);
         hash = 61 * hash + Objects.hashCode(this.name);
@@ -61,8 +57,7 @@ public class Car {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        
+
         return Objects.equals(this.id, other.id);
     }    
 }
-

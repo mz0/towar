@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ICarsService {
     
-    public List<Car> findAllCars();
-    public Car findCar(Long id);
-    public void saveCar(Car car);
+    List<Car> findAllCars();
+    Car findCar(Long id);
+    void saveCar(Car car);
 }

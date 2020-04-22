@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface CarDAO {
 
-  public void saveCar(Car car);
-  public Car findCar(Long id);
-  public List<Car> findAll();
+  void saveCar(Car car);
+  Car findCar(Long id);
+  List<Car> findAll();
 }
