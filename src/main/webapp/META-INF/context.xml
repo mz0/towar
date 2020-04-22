@@ -9,5 +9,5 @@
               username="tomC"
               password="at9"
               maxTotal="8" maxIdle="3"
-              maxWaitMillis="600000"/>
+              maxWaitMillis="-1"/>
 </Context>
