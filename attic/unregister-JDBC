@@ -1,0 +1,74 @@
+https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html
+----
+https://stackoverflow.com/questions/26515700/mysql-jdbc-driver-5-1-33-time-zone-issue
+----------------------
+https://tomcat.apache.org/tomcat-9.0-doc/jdbc-pool.html
+logAbandoned
+removeAbandonedTimeout
+removeAbandoned
+## Tomcat JDBC Enhanced Attributes
+dataSource
+dataSourceJNDI
+----
+https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-usagenotes-j2ee-concepts-connection-pooling.html
+----------------------
+JNDI Resource Naming and Realm Interaction
+
+In order to get Realms to work, the realm must refer to the datasource as defined in the
+<GlobalNamingResources> or <Context> section, not a datasource as renamed using <ResourceLink>.
+-----------------------------------------------------------
+https://stackoverflow.com/questions/3320400/to-prevent-a-memory-leak-the-jdbc-driver-has-been-forcibly-unregistered
+
+
+
+Since version 6.0.24, Tomcat ships with a memory leak detection feature, which in turn can lead to this kind of warning messages when there's a JDBC 4.0 compatible driver in the webapp's /WEB-INF/lib which auto-registers itself during webapp's startup using the ServiceLoader API, but which did not auto-deregister itself during webapp's shutdown. This message is purely informal, Tomcat has already taken the memory leak prevention action accordingly.
+
+What can you do?
+
+    Ignore those warnings. Tomcat is doing its job right. The actual bug is in someone else's code (the JDBC driver in question), not in yours. Be happy that Tomcat did its job properly and wait until the JDBC driver vendor get it fixed so that you can upgrade the driver. On the other hand, you aren't supposed to drop a JDBC driver in webapp's /WEB-INF/lib, but only in server's /lib. If you still keep it in webapp's /WEB-INF/lib, then you should manually register and deregister it using a ServletContextListener.
+
+    Downgrade to Tomcat 6.0.23 or older so that you will not be bothered with those warnings. But it will silently keep leaking memory. Not sure if that's good to know after all. Those kind of memory leaks are one of the major causes behind OutOfMemoryError issues during Tomcat hotdeployments.
+
+    Move the JDBC driver to Tomcat's /lib folder and have a connection pooled datasource to manage the driver. Note that Tomcat's builtin DBCP does not deregister drivers properly on close. See also bug DBCP-322 which is closed as WONTFIX. You would rather like to replace DBCP by another connection pool which is doing its job better then DBCP. For example HikariCP, BoneCP, or perhaps Tomcat JDBC Pool.
+
+------------
+// This manually deregisters JDBC driver, which prevents Tomcat 7 from complaining about memory leaks wrto this class
+Enumeration<Driver> drivers = DriverManager.getDrivers();
+while (drivers.hasMoreElements()) {
+    Driver driver = drivers.nextElement();
+    try {
+        DriverManager.deregisterDriver(driver);
+        LOG.log(Level.INFO, String.format("deregistering jdbc driver: %s", driver));
+    } catch (SQLException e) {
+        LOG.log(Level.SEVERE, String.format("Error deregistering driver %s", driver), e);
+    }
+}
+==================
+ublic final void contextDestroyed(ServletContextEvent sce) {
+    // ... First close any background tasks which may be using the DB ...
+    // ... Then close any DB connection pools ...
+
+    // Now deregister JDBC drivers in this context's ClassLoader:
+    // Get the webapp's ClassLoader
+    ClassLoader cl = Thread.currentThread().getContextClassLoader();
+    // Loop through all drivers
+    Enumeration<Driver> drivers = DriverManager.getDrivers();
+    while (drivers.hasMoreElements()) {
+        Driver driver = drivers.nextElement();
+        if (driver.getClass().getClassLoader() == cl) {
+            // This driver was registered by the webapp's ClassLoader, so deregister it:
+            try {
+                log.info("Deregistering JDBC driver {}", driver);
+                DriverManager.deregisterDriver(driver);
+            } catch (SQLException ex) {
+                log.error("Error deregistering JDBC driver {}", driver, ex);
+            }
+        } else {
+            // driver was not registered by the webapp's ClassLoader and may be in use elsewhere
+            log.trace("Not deregistering JDBC driver {} as it does not belong to this webapp's ClassLoader", driver);
+        }
+    }
+}
+--------------------
+As of Servlet 3.0, you can annotate your class with @WebListener and omit the web.xml configuration.
+http://mybatis-user.963551.n3.nabble.com/Unregistering-JDBC-Driver-td1792718.html

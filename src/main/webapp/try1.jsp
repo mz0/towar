@@ -6,19 +6,19 @@ select ID, Name, Price from CARS
 </sql:query>
 
 <html>
-  <head>
-    <title>DB Test</title>
-  </head>
-  <body>
-
+<head>
+  <title>DB Test</title>
+  <link href="static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
   <h2>Results</h2>
-
+  <table>
+  <tr><th> Name <th> Price
   <c:forEach var="row" items="${rs.rows}">
-    Name ${row.Name}<br/>
-    Price ${row.Price}<br/>
+    <tr><td> ${row.Name} <td> ${row.Price}
   </c:forEach>
-
-  </body>
+  </table>
+</body>
 </html>
 <!--
 https://tomcat.apache.org/taglibs/standard/

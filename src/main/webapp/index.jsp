@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page trimDirectiveWhitespaces="true"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,8 +16,7 @@
         
         <ul>
             <li><a href="controller?action=listcars">Show all</a></li>
-            <li><a href="controller?action=readbyid">Show car by ID</a></li>
-            <li><a href="controller?action=readcar">Create a new car</a></li>
+            <li><a href="try1.jsp">Show all (simple JSTL demo)</a></li>
         </ul>
          
     </body>

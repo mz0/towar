@@ -1,7 +1,9 @@
+-- as e.g. root@localhost
 create user tomC@localhost IDENTIFIED BY 'at9';
-create database Tomcar;
-grant all on Tomcar.* to tomC@localhost;
+grant all on Tomcar.* to tomC@localhost WITH GRANT OPTION;
 
+-- as tomC@localhost
+create database Tomcar;
 use Tomcar;
 
 CREATE TABLE CARS(
