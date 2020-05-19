@@ -1,0 +1,22 @@
+plugins {
+  id 'java'
+  id 'nu.studer.jooq' version '4.2'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+jooq {
+  version = '3.13.2'
+  edition = 'OSS'    // the default (can be omitted)
+}
+
+dependencies {
+  jooqRuntime 'org.postgresql:postgresql:42.2.12'
+//jooqRuntime 'mysql:mysql-connector-java:8.0.20'
+  implementation 'org.jooq:jooq'
+//implementation 'org.jooq:jooq-meta'
+//compileOnly 'org.jooq:jooq-codegen'
+}
